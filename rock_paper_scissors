@@ -1,0 +1,86 @@
+from tkinter import *
+import random
+
+
+# Initiliasing the window,
+window = Tk()
+window.geometry('400x400')
+window.resizable(0, 0)
+window.title('Dermot\'s Rock, Paper, Scissors Game')
+window.config(bg='seashell3')
+
+
+# Label is a header that cannot be modified by users
+Label(window, text='Rock, Paper, Scissors',
+      font='Times_New_Roman 20 bold', bg='seashell2').pack()
+
+# Label to the guide player
+user_op = StringVar()
+Label(window, text='Choose any one: rock, paper, scissors',
+      font='Times_New_Roman 12 bold', bg='antiquewhite2').place(x=20, y=70)
+Entry(window, font='Times_New_Roman 12', textvariable=user_op,
+      bg='antiquewhite2').place(x=90, y=130)
+
+# The computers options randomly selected for
+comp_pick = random.randint(1, 3)
+if comp_pick == 1:
+    comp_pick = 'rock'
+elif comp_pick == 2:
+    comp_pick = 'paper'
+elif comp_pick == 3:
+    comp_pick = 'scissors'
+
+
+# This will create the rules for game
+result = StringVar()
+
+
+def play():
+    user_pick = user_op.get()
+    if user_pick == comp_pick:
+        result.set('It\'s a tie! Play again')
+    elif user_pick == 'rock' and comp_pick == 'paper':
+        result.set('You Lose!')
+    elif user_pick == 'rock' and comp_pick == 'scissors':
+        result.set('You Win!')
+    elif user_pick == 'paper' and comp_pick == 'scissors':
+        result.set('You Lose!')
+    elif user_pick == 'paper' and comp_pick == 'rock':
+        result.set('You Win!')
+    elif user_pick == 'scissor' and comp_pick == 'rock':
+        result.set('You Lose')
+    elif user_pick == 'scissor' and comp_pick == 'paper':
+        result.set('You Win!')
+    else:
+        result.set('Invalid: choose any one -- rock, paper, scissors')
+
+# function to reset the game
+
+
+def reset():
+    result.set("")
+    user_op.set("")
+
+# function to exit the game
+
+
+def exit():
+    window.destroy()
+
+
+# buttons  to navigate the game
+Entry(window, font='Times_New_Roman 10 bold', textvariable=result,
+      bg='antiquewhite2', width=32,).place(x=50, y=250)
+
+B = Button(window, font='Times_New_Roman 13 bold', text='PLAY',
+           padx=5, bg='seashell4', command=play).place(x=150, y=190)
+
+B1 = Button(window, font='Times_New_Roman 13 bold', text='RESET',
+            padx=5, bg='seashell4', command=reset).place(x=70, y=310)
+
+B2 = Button(window, font='Times_New_Roman 13 bold', text='EXIT',
+            padx=5, bg='seashell4', command=exit).place(x=230, y=310)
+
+
+# Entry point for the game
+window.mainloop()
